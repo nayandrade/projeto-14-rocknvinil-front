@@ -2,8 +2,9 @@ import "../assets/reset.css";
 import "../assets/style.css";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from "react";
-import SupplierContext from '../contexts/SupplierContext';
+import SupplierContext from '../contexts/supplierContext';
 import SupplierProducts from './SupplierProducts';
+import MainMenu from "./MainMenu";
 
 export default function App() {
 
@@ -19,7 +20,6 @@ export default function App() {
         <Routes>
           <Route path='/' element={ <MainMenu/> } />
           <Route path='/myproducts' element={ <SupplierProducts/> } />
-          <h1>Hello World</h1>
         </Routes>        
       </SupplierContext.Provider>      
     </BrowserRouter>

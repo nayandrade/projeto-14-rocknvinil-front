@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export default function SupplierProduct ({ albumName, albumYear, albumPic, bandName, prize, discount, date, amountAvailable}) {
     return (
         <Container>
