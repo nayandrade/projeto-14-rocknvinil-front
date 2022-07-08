@@ -4,6 +4,7 @@ import axios from "axios"
 import styled from "styled-components"
 import UserContext from "../contexts/UserContext.js"
 import CartItem from "./CartItem.js"
+import Header from "./Header.js"
     
 export default function Cart() {
     const [loading, setLoading] = useState(true)
@@ -73,6 +74,7 @@ export default function Cart() {
 
     return (
         <>
+            <Header />
             <Container>
                 {
                     !cart ? "carregando" : renderCart()
@@ -83,8 +85,6 @@ export default function Cart() {
                 {
                     cart && cart.length > 0 ? renderButtons() : renderCancelButton()
                 }
-
-                
             </Container>           
         </>        
     )
@@ -92,12 +92,13 @@ export default function Cart() {
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 140px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
+    margin-top: 140px;
 
     a {
         font-size: 15px;
