@@ -6,7 +6,8 @@ import UserContext from "../contexts/UserContext.js";
 import Cart from "./Cart.js";
 import Base from "./Base.js";
 import SignUp from './SignUp.js';
-import SignIn from './SignIn';
+import SignIn from './SignIn.js';
+import AddProduct from './AddProduct';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -16,9 +17,10 @@ export default function App() {
       <UserContext.Provider value={{ user, setUser, token, setToken }}>
         <Routes>
           <Route path="/" element={<Base />} />
-          <Route path='/sign-up' element={<SignUp/>}/>
-          <Route path='/sign-in' element={<SignIn/>}/>
+          <Route path='/sign-up' element={<SignUp />}/>
+          <Route path='/sign-in' element={<SignIn />}/>
           <Route path="/carrinho" element={<Cart />} />
+          <Route path="/add-product" element={<AddProduct />} />
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

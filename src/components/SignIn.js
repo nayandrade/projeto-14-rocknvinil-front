@@ -80,7 +80,7 @@ const Container = styled.div`
 
     input {
         width: 326px;
-        height: 58px;
+        height: 48px;
         background-color: #FFFFFF;
         border-radius: 5px;
         margin-bottom: 13px;
