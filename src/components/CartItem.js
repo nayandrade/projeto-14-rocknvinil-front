@@ -10,10 +10,11 @@ export default function CartItem({ key, albumName, albumPic, albumYear, bandName
     function removeAlbumQuantity() {
         if( albumQuantity > 1 ) {
             setAlbumQuantity(albumQuantity - 1)
-            axios.put(`http://localhost:5002/carrinho/${_id}`, {
+            axios.put(`https://projeto-14-rocknvinil-back.herokuapp.com/carrinho/${_id}`, {
                 buyerQuantity: albumQuantity - 1
             })
             .then(res => {
+                setLoading(true)
                 console.log(res)
             }).catch(err => {
                 console.log(err)
@@ -24,10 +25,11 @@ export default function CartItem({ key, albumName, albumPic, albumYear, bandName
     function addAlbumQuantity() {
         if( albumQuantity < quantity ) {
             setAlbumQuantity(albumQuantity + 1)
-            axios.put(`http://localhost:5002/carrinho/${_id}`, {
+            axios.put(`https://projeto-14-rocknvinil-back.herokuapp.com/carrinho/${_id}`, {
                 buyerQuantity: albumQuantity + 1
             } )
             .then(res => {
+                setLoading(true)
                 console.log(res)
             }).catch(err => {
                 console.log(err)
@@ -36,7 +38,7 @@ export default function CartItem({ key, albumName, albumPic, albumYear, bandName
     }
 
     function removeFromCart() {
-        axios.delete(`http://localhost:5002/carrinho/${_id}`)
+        axios.delete(`https://projeto-14-rocknvinil-back.herokuapp.com/carrinho/${_id}`)
         .then(res => {
             console.log(res)
             setLoading(true)
