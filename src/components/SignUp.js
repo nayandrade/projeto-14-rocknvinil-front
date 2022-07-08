@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import axios from 'axios';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import rocknvinil from '../img/ROCK & VINIL2 1.png';
 
 export default function SignUp(){
@@ -12,6 +12,7 @@ export default function SignUp(){
     const [confirmPassword, setConfirmPassword] = useState('');
     const body = {name, email, cpf, password};
     const API = 'http://localhost:5000/sign-up';
+    const navigate = useNavigate();
 
     async function Send(event){
         event.preventDefault();
@@ -29,15 +30,12 @@ export default function SignUp(){
             setCPF('');
             setPassword('');
             setConfirmPassword('');
+            navigate('/sign-in')
 
         } catch(error){
             return alert(error.response.data);
         }
-
-
-    }
-    
-
+    }  
 
     return(
         <Container>

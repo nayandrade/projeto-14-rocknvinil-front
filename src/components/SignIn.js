@@ -1,24 +1,40 @@
 import styled from 'styled-components';
 import axios from 'axios';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import rocknvinil from '../img/ROCK & VINIL2 1.png';
+import UserContext from '../contexts/UserContext';
 
 export default function SignIn(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const body = {email, password};
-    const API = 'http://localhost:5000/';
+    const serialData = localStorage.getItem('data');
+    const data = JSON.parse(serialData);
+    const {token, setToken} = useContext(UserContext);
+    const navigate = useNavigate();
+    const API = 'http://localhost:5000/sign-in';
+    
+    function Autologin(data){
+        if(data){
+            setEmail(data.email);
+            setPassword(data.password);
+        }
+    }
+    useEffect(() => {Autologin(data)}, [])
 
     async function Send(event){
         event.preventDefault()
 
         try{
-            //await axios.post(API, body);
-            alert('Acesso realizado com sucesso!')
+            const response = await axios.post(API, body);
+            alert('Acesso realizado com sucesso!');
+            localStorage.setItem(`data`, JSON.stringify(body));
             setEmail('');
             setPassword('');
-
+            setToken(response.data);
+            navigate('/');
+            
         } catch(error){
             return alert(error.response.data);
         }
