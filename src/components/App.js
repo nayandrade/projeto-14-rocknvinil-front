@@ -11,14 +11,16 @@ import SignUp from './SignUp.js';
 export default function App() {
 
   const [user, setUser] = useState(
-    localStorage.getItem('supplierdata')
-        ? JSON.parse(localStorage.getItem('supplierdata'))
+    localStorage.getItem('userdata')
+        ? JSON.parse(localStorage.getItem('userdata'))
         : null
   );
 
+  const [token, setToken] = useState([]);
+
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ user, setUser }}>
+      <UserContext.Provider value={{ user, setUser, token, setToken }}>
         <Routes>
           <Route path='/' element={ <MainMenu/> } />
           <Route path='/myproducts' element={ <SupplierProducts/> } />

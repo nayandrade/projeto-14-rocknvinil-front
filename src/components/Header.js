@@ -30,7 +30,7 @@ export default function Header( { setProducts, getProducts }) {
                     <p>Meus <br></br>Produtos</p>
                 </Link>               
                 <span>
-                    <input type='text' placeholder='Search' required onClick={searchHandle}/><img src={searchIcon}/>
+                    <input type='text' placeholder='Search' required/><img src={searchIcon} onClick={searchHandle}/>
                 </span>
                 <p><Link to='/'>Home</Link></p>
             </div>
@@ -76,11 +76,13 @@ const MyHeader = styled.header`
     span > img {
         width: 20px;
         position: absolute;
-        top: 1px;
+        top: 4px;
         right: 5px;
     }
     input{
         width: 100%;
+        padding-left: 20px;
+        height: 30px;
     }
     a {
         text-decoration: none;

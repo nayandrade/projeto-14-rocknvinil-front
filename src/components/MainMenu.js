@@ -9,7 +9,6 @@ import Product from './Product';
 
 export default function MainMenu () {
     const [products, setProducts] = useState([]);
-    const navigate = useNavigate();
     const [itensPerPage, setItensPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(0);
 
@@ -37,8 +36,9 @@ export default function MainMenu () {
     }, [itensPerPage])
 
     return (
+        <>
+        <Header setProducts={setProducts} getProducts={getProducts}/>
         <Container>
-            <Header setProducts={setProducts} getProducts={getProducts}/>
             <ProductsForSale>
                 {
                     currentItens.length > 0 ? currentItens.map((product, index) => <Product key={index} albumName={product.albumName} albumYear={product.albumName} albumPic={product.albumPic} bandName={product.bandName} prize={product.prize} discount={product.discount} amountAvailable={product.amountAvailable} date={product.registryDay}/> )
@@ -50,11 +50,16 @@ export default function MainMenu () {
                 <PaginationSelector itensPerPage={itensPerPage} setItensPerPage={setItensPerPage}/>
             </div>
         </Container>
+        </>
     )
 }
 
 const Container=styled.div`
+    width: 100vw;
+    height: 100vh;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     h4 {
         font-size: 20px;
@@ -63,40 +68,13 @@ const Container=styled.div`
 `
 
 const ProductsForSale=styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60%;
     border-radius: 10px;
     color: #ffffff;
-    background-color: #000000;
-    opacity: 0.7;
-    overflow: scroll;
-`
-
-const MainHeader=styled.div`
-    width: 100vw;
-    height: 200px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    div {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    h2 {
-        font-size: 20px;
-        color: #000000;
-    }
-
-    h2:hover {
-        cursor: pointer;
-    }
-
-    img {
-        width: 100px;
-        height: 70px;
-    }
-
-    input {
-
-    }
+    background-color: #0D0D0D;
+    overflow: hidden;
 `
