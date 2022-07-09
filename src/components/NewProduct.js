@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import rocknvinil from '../img/ROCK & VINIL2 1.png';
 
-export default function AddProduct(){
+export default function NewProduct(){
     const [albumName, setAlbumName] = useState('');
     const [albumYear, setAlbumYear] = useState('');
-    const [albumBand, setAlbumBand] = useState('');
     const [albumImage, setAlbumImage] = useState('');
+    const [albumBand, setAlbumBand] = useState('');
     const [albumPrize, setAlbumPrize] = useState('');
+    const [albumQuantity, setAlbumQuantity] = useState('');
     const [albumDiscount, setAlbumDiscount] = useState('');
 
     return (
@@ -21,6 +22,7 @@ export default function AddProduct(){
             <input type='text' placeholder='imagem' value={albumImage} onChange={(e) => setAlbumImage(e.target.value)} required/>
             <input type='text' placeholder='nome da banda' value={albumBand} onChange={(e) => setAlbumBand(e.target.value)} required/>
             <input type='number' placeholder='preço' value={albumPrize} onChange={(e) => setAlbumPrize(e.target.value)} required/>
+            <input type='number' placeholder='quantidade disponível' value={albumQuantity} onChange={(e) => setAlbumQuantity(e.target.value)} required/>
             <input type='number' placeholder='% de desconto' value={albumDiscount} onChange={(e) => setAlbumDiscount(e.target.value)} required/>
             <button type='submit'>
                 Cadastrar produto
@@ -55,19 +57,19 @@ const Container = styled.div`
 
     input {
         width: 326px;
-        height: 48px;
+        height: 38px;
         background-color: #FFFFFF;
         border-radius: 5px;
         margin-bottom: 13px;
         padding-left: 15px;
         padding-right: 15px;
-        font-size: 20px;
+        font-size: 18px;
         border: none;
         outline: none;
     }
 
     input::placeholder{
-        font-size: 20px;
+        font-size: 18px;
         color: #000000;
     }
 
@@ -77,7 +79,7 @@ const Container = styled.div`
         border-radius: 5px; 
         margin-bottom: 32px;
         border: none;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
         color: #F2F2F2;
         background-color: #A6A6A6;

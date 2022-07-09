@@ -80,19 +80,19 @@ const Container = styled.div`
 
     input {
         width: 326px;
-        height: 48px;
+        height: 38px;
         background-color: #FFFFFF;
         border-radius: 5px;
         margin-bottom: 13px;
         padding-left: 15px;
         padding-right: 15px;
-        font-size: 20px;
+        font-size: 18px;
         border: none;
         outline: none;
     }
 
     input::placeholder{
-        font-size: 20px;
+        font-size: 18px;
         color: #000000;
     }
 
@@ -102,7 +102,7 @@ const Container = styled.div`
         border-radius: 5px; 
         margin-bottom: 32px;
         border: none;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
         color: #F2F2F2;
         background-color: #A6A6A6;
