@@ -6,17 +6,17 @@ import axios from "axios";
 
 export default function Header( { setProducts, getProducts }) {
 
-    const searchHandle = (e) => {
-        let key = e.target.value;
-        if (key) {
-            let promise = axios.get(`https://projeto-14-rocknvinil-back.herokuapp.com/products/${key}`);
-            if (promise) {
-                setProducts(promise)
-            }
-        } else {
-            getProducts();
-        }
-    }
+    // const searchHandle = (e) => {
+    //     let key = e.target.value;
+    //     if (key) {
+    //         let promise = axios.get(`https://projeto-14-rocknvinil-back.herokuapp.com/products/${key}`);
+    //         if (promise) {
+    //             setProducts(promise)
+    //         }
+    //     } else {
+    //         getProducts();
+    //     }
+    // }
 
     return (
         <MyHeader>
@@ -30,7 +30,7 @@ export default function Header( { setProducts, getProducts }) {
                     <p>Meus <br></br>Produtos</p>
                 </Link>               
                 <span>
-                    <input type='text' placeholder='Search' required/><img src={searchIcon} onClick={searchHandle}/>
+                    <input type='text' placeholder='Search' required/><img src={searchIcon} />
                 </span>
                 <p><Link to='/'>Home</Link></p>
             </div>

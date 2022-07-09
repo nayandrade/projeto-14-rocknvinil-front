@@ -26,7 +26,7 @@ const Pagination=styled.div`
         width: 80px;
         height: 40px;
         position: absolute;
-        right: -600px;
+        right: 10px;
         bottom: -50px;
     }
 

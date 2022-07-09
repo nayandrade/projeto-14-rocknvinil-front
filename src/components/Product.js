@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export default function Product ({ albumName, albumYear, albumPic, bandName, prize, discount}) {
+export default function Product ({ albumName, albumYear, albumImage, bandName, prize, discount}) {
 
     let actualPrize = prize * ((100 - discount) / 100 )
 
     return (
         <Container>
             <AlbumPic>
-                <img src={albumPic} />
+                <img src={albumImage} />
             </AlbumPic>
             <AlbumInfo>
                 <h4>{albumName}</h4>

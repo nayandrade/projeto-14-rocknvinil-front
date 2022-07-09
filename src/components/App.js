@@ -6,8 +6,8 @@ import SupplierProducts from './SupplierProducts';
 import MainMenu from "./MainMenu";
 import UserContext from "../contexts/UserContext.js";
 import Cart from "./Cart.js";
-import SignUp from './SignUp.js';
-import SignIn from './SignIn.js';
+import SignUp from './SignUp';
+import SignIn from './SignIn';
 import NewProduct from './NewProduct';
 
 export default function App() {
