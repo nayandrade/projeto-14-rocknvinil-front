@@ -2,18 +2,17 @@ import axios from 'axios';
 import { useEffect, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import SupplierContext from '../contexts/supplierContext';
+import UserContext from '../contexts/UserContext';
 import Header from './Header';
 import SupplierProduct from './SupplierProduct';
-import logo from '../logo/logo.png'
 
 export default function SupplierProducts () {
-    const { supplier } = useContext(SupplierContext);
+    const { user } = useContext(UserContext);
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products', {headers: {Authorization: `Bearer ${supplier.token}`}});
+        const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products', {headers: {Authorization: `Bearer ${user.token}`}});
         promise.then((res) => {
             setProducts(res.data)
         });
@@ -24,24 +23,9 @@ export default function SupplierProducts () {
 
     return (
         <Container>
-            <Header>
-                <MainHeader>
-                    <div>
-                        <h2 onClick={() => navigate('/login')}>Entrar</h2>
-                        <h2 onClick={() => navigate('/cart')}>Carrinho</h2>
-                    </div>
-                    <div>
-                        <img src={logo} />
-                    </div>
-                    <div>
-                        <h2>Buscar</h2>
-                        <h2 onClick={() => navigate('/')}>Vinis</h2>
-                        <h2 onClick={() => navigate('/myproducts')}>Meus produtos</h2>
-                    </div>  
-                </MainHeader>
-            </Header>
+            <Header />
             <SupplierHeader>
-                <h2>Oi, { supplier.name } </h2>
+                <h2>Oi, { user.name } </h2>
                 <h3>Obrigada por contribuir com nossa loja!</h3>
                 <button onClick={() => navigate('/addproduct')}>+</button>
             </SupplierHeader>           

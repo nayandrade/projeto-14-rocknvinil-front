@@ -2,13 +2,15 @@ import "../assets/reset.css";
 import "../assets/style.css";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from "react";
-import SupplierContext from '../contexts/supplierContext';
 import SupplierProducts from './SupplierProducts';
 import MainMenu from "./MainMenu";
+import UserContext from "../contexts/UserContext.js";
+import Cart from "./Cart.js";
+import SignUp from './SignUp.js';
 
 export default function App() {
 
-  const [supplier, setSupplier] = useState(
+  const [user, setUser] = useState(
     localStorage.getItem('supplierdata')
         ? JSON.parse(localStorage.getItem('supplierdata'))
         : null
@@ -16,12 +18,14 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <SupplierContext.Provider value={{ supplier, setSupplier }}>
+      <UserContext.Provider value={{ user, setUser }}>
         <Routes>
           <Route path='/' element={ <MainMenu/> } />
           <Route path='/myproducts' element={ <SupplierProducts/> } />
-        </Routes>        
-      </SupplierContext.Provider>      
+          <Route path='/sign-up' element={<SignUp/>}/>
+          <Route path="/carrinho" element={<Cart />} />
+        </Routes>
+      </UserContext.Provider>
     </BrowserRouter>
   );
 }
