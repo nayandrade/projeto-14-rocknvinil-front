@@ -1,23 +1,32 @@
-import '../styles/reset.css'
-import '../styles/styles.css';
+import "../assets/reset.css";
+import "../assets/style.css";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SupplierProducts from './SupplierProducts';
+import MainMenu from "./MainMenu";
 import UserContext from "../contexts/UserContext.js";
 import Cart from "./Cart.js";
-import Base from "./Base.js";
 import SignUp from './SignUp.js';
 import SignIn from './SignIn.js';
 import NewProduct from './NewProduct';
 
 export default function App() {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+
+  const [user, setUser] = useState(
+    localStorage.getItem('userdata')
+        ? JSON.parse(localStorage.getItem('userdata'))
+        : null
+  );
+
+  const [token, setToken] = useState([]);
+
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser, token, setToken }}>
         <Routes>
-          <Route path="/" element={<Base />} />
-          <Route path='/sign-up' element={<SignUp />}/>
+          <Route path='/' element={ <MainMenu/> } />
+          <Route path='/myproducts' element={ <SupplierProducts/> } />
+          <Route path='/sign-up' element={<SignUp/>}/>
           <Route path='/sign-in' element={<SignIn />}/>
           <Route path="/carrinho" element={<Cart />} />
           <Route path="/new-product" element={<NewProduct />} />
