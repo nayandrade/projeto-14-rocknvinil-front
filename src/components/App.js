@@ -7,6 +7,8 @@ import MainMenu from "./MainMenu";
 import UserContext from "../contexts/UserContext.js";
 import Cart from "./Cart.js";
 import SignUp from './SignUp.js';
+import SignIn from './SignIn.js';
+import NewProduct from './NewProduct';
 
 export default function App() {
 
@@ -25,7 +27,9 @@ export default function App() {
           <Route path='/' element={ <MainMenu/> } />
           <Route path='/myproducts' element={ <SupplierProducts/> } />
           <Route path='/sign-up' element={<SignUp/>}/>
+          <Route path='/sign-in' element={<SignIn />}/>
           <Route path="/carrinho" element={<Cart />} />
+          <Route path="/new-product" element={<NewProduct />} />
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>
