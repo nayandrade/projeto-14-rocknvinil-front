@@ -11,7 +11,7 @@ export default function SignUp(){
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const body = {name, email, cpf, password};
-    const API = 'http://localhost:5000/sign-up';
+    const API = 'https://projeto-14-rocknvinil-back.herokuapp.com/sign-up';
     const navigate = useNavigate();
 
     async function Send(event){

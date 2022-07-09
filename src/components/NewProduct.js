@@ -13,7 +13,7 @@ export default function NewProduct(){
     const [albumPrice, setAlbumPrice] = useState('');
     const [albumQuantity, setAlbumQuantity] = useState('');
     const [albumDiscount, setAlbumDiscount] = useState('');
-    const API = 'http://localhost:5000/new-product';
+    const API = 'https://projeto-14-rocknvinil-back.herokuapp.com/new-product';
 
     const body = {albumName, albumYear, albumImage, albumBand, albumPrice, albumQuantity, albumDiscount}
     const {token} = useContext(UserContext); 

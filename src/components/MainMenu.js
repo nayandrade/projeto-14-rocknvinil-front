@@ -65,6 +65,10 @@ const Container=styled.div`
         font-size: 20px;
     }
 
+    div {
+        width: 100%;
+    }
+
 `
 
 const ProductsForSale=styled.div`

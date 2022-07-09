@@ -12,6 +12,9 @@ export default function SupplierProducts () {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
+    console.log(user)
+
+
     useEffect(() => {
         const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products', {headers: {Authorization: `Bearer ${token}`}});
         promise.then((res) => {
@@ -21,6 +24,8 @@ export default function SupplierProducts () {
             console.log(err);
         })
     }, []);
+
+    console.log(user)
 
     return (
         <>
@@ -35,7 +40,7 @@ export default function SupplierProducts () {
             <div>
                 {
                     products.length > 0 ? (
-                    products.map((product, index) => <SupplierProduct key={index} albumName={product.albumName} albumYear={product.albumName} albumPic={product.albumPic} bandName={product.bandName} prize={product.prize} discount={product.discount} amountAvailable={product.amountAvailable} date={product.registryDay}/> ))
+                    products.map((product, index) => <SupplierProduct key={index} albumName={product.albumName} albumYear={product.albumName} albumImage={product.albumImage} bandName={product.bandName} prize={product.prize} discount={product.discount} amountAvailable={product.amountAvailable} date={product.registryDay}/> ))
                     :
                     <h4>Você ainda não possui um produto à venda.</h4>
                 }

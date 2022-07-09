@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export default function SupplierProduct ({ albumName, albumYear, albumPic, bandName, prize, discount, date, amountAvailable}) {
+export default function SupplierProduct ({ albumName, albumYear, albumImage, bandName, prize, discount, date, amountAvailable}) {
     return (
         <Container>
             <AlbumPic>
-                <img src={albumPic} />
+                <img src={albumImage} />
             </AlbumPic>
             <AlbumInfo>
                 <h4>{bandName} | {albumYear} | {albumName}</h4>
