@@ -15,6 +15,7 @@ export default function SignUp(){
     const [validEmail, setValidEmail] = useState(true);
     const [validCPF, setValidCPF] = useState(true);
     const [validPassword, setValidPassword] = useState(true);
+    const [validConfirmPassword, setValidConfirmPassword] = useState(true);
 
     const inputName = useRef();
     const inputEmail = useRef();
@@ -23,15 +24,15 @@ export default function SignUp(){
     const inputConfirmPassword = useRef();
 
     const body = {name, email, cpf, password};
-    //const API = 'https://projeto-14-rocknvinil-back.herokuapp.com/sign-up';
-    const API = 'http://localhost:5000/sign-up';
+    const API = 'https://projeto-14-rocknvinil-back.herokuapp.com/sign-up';
     const navigate = useNavigate();
 
     async function Send(event){
         event.preventDefault();
-        const isValidPassword = password === confirmPassword;
+        const isValidPassword = (password === confirmPassword);
 
         if(!isValidPassword){
+            setValidConfirmPassword(false)
             inputConfirmPassword.current.focus();
             return alert('Você não está confirmando sua senha corretamente.')
         }
@@ -48,18 +49,17 @@ export default function SignUp(){
 
         } catch(error){
             const errorMessage = error.response.data;
-            alert(errorMessage);
 
             setValidName(true);
             setValidEmail(true);
             setValidCPF(true);
             setValidPassword(true);
-
+            setValidConfirmPassword(true);
 
             if(errorMessage === ('User name is not available.' || 'Invalid name.')){
                 setValidName(false);
                 return inputName.current.focus();
-            }
+            }   
 
             if(errorMessage === ('User email is not available.' || 'Invalid email.')){
                 setValidEmail(false);
@@ -82,7 +82,8 @@ export default function SignUp(){
         <Container nameBackground={validName ? '#FFFFFF' : '#EA8E86'}
                    emailBackground={validEmail ? '#FFFFFF' : '#EA8E86'}
                    CPFBackground={validCPF ? '#FFFFFF' : '#EA8E86'}
-                   passwordBackground={validPassword ? '#FFFFFF' : '#EA8E86'}>
+                   passwordBackground={validPassword ? '#FFFFFF' : '#EA8E86'}
+                   confirmPasswordBackground={validConfirmPassword ? '#FFFFFF' : '#EA8E86'}>
             <form onSubmit={Send}>
                 <img src={rocknvinil} alt='rocknvinil'/>
                 
@@ -98,7 +99,9 @@ export default function SignUp(){
                 <input id='password' type='password' placeholder='Senha' value={password} onChange={(e) => setPassword(e.target.value)} ref={inputPassword} required/>
                 <h5 id='password' className={`${validPassword ? 'hidden' : ''}`}>Senha inválida.</h5>
                 
-                <input type='password' placeholder='Confirmar senha' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} ref={inputConfirmPassword} required/>
+                <input id='confirmPassword' type='password' placeholder='Confirmar senha' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} ref={inputConfirmPassword} required/>
+                <h5 id='confirmPassword' className={`${validConfirmPassword ? 'hidden' : ''}`}>A senha que você digitou é diferente.</h5>
+                
                 <button type='submit'>
                     Cadastrar
                 </button>
@@ -163,6 +166,10 @@ const Container = styled.div`
 
     input#password {
         background-color: ${props => props.passwordBackground};
+    }
+
+    input#confirmPassword {
+        background-color: ${props => props.confirmPasswordBackground};
     }
 
     input::placeholder{

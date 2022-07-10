@@ -17,8 +17,7 @@ export default function SignIn(){
     const {token, setToken} = useContext(UserContext);
 
     const navigate = useNavigate();
-    //const API = 'https://projeto-14-rocknvinil-back.herokuapp.com/sign-in';
-    const API = 'http://localhost:5000/sign-in';
+    const API = 'https://projeto-14-rocknvinil-back.herokuapp.com/sign-in';
     
     function Autologin(data){
         if(data){
@@ -33,7 +32,6 @@ export default function SignIn(){
 
         try{
             const response = await axios.post(API, body);
-            alert('Acesso realizado com sucesso!');
             localStorage.setItem(`data`, JSON.stringify(body));
             setEmail('');
             setPassword('');
@@ -42,8 +40,7 @@ export default function SignIn(){
             
         } catch(error){
             setValidInput(false);
-            inputElement.current.focus();
-            return alert(error.response.data);
+            return inputElement.current.focus();
         }
     }
     
@@ -51,8 +48,9 @@ export default function SignIn(){
         <Container backgroundColor={validInput ? '#FFFFFF' : '#EA8E86'}>
             <form onSubmit={Send}>
                 <img src={rocknvinil} alt='rocknvinil'/>
-                <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} ref={inputElement} required/>
-                <input type='password' placeholder='Senha' value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                <input id='email' type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} ref={inputElement} required/>
+                <input id='password' type='password' placeholder='Senha' value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                <h5 id='error' className={`${validInput ? 'hidden' : ''}`}>Email ou senha inválido.</h5>
                 <button type='submit'>
                     Entrar
                 </button>
@@ -95,7 +93,8 @@ const Container = styled.div`
         height: 38px;
         background-color: ${props => props.backgroundColor};
         border-radius: 5px;
-        margin-bottom: 13px;
+        margin-top: 13px;
+        margin-bottom: 5px;
         padding-left: 15px;
         padding-right: 15px;
         font-size: 18px;
@@ -112,6 +111,7 @@ const Container = styled.div`
         width: 326px;
         height: 46px;
         border-radius: 5px; 
+        margin-top: 13px;
         margin-bottom: 32px;
         border: none;
         font-size: 18px;
@@ -128,5 +128,9 @@ const Container = styled.div`
         font-size: 15px;
         font-weight: 700;
         color: #F2F2F2; 
+    }
+
+    h5{
+        color: #FFFFFF; 
     }
 `
