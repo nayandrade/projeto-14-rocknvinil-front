@@ -19,7 +19,7 @@ export default function Cart() {
     };
 
     if (loading) {
-        const promise = axios.get("https://projeto-14-rocknvinil-back.herokuapp.com/carrinho", config)
+        const promise = axios.get("https://projeto-14-rocknvinil-back.herokuapp.com/cart", config)
         promise.then(response => {
             setCart(response.data.myCart)
             setTotal(parseFloat(response.data.totalValue).toFixed(2))
@@ -76,7 +76,7 @@ export default function Cart() {
             <Header />
             <Container>
                 {
-                    !cart ? "carregando" : renderCart()
+                    token.length < 1 ? "faça login para continuar" : !cart ? "carregando..." : renderCart()
                 }
                 {
                     cart && cart.length > 0 ? <TotalCartValue>Subtotal: R$ {total.replace('.', ',')}</TotalCartValue> : cart && cart.length === 0 ? <EmptyCart>Seu carrinho está vazio, <br></br>Adicione itens para continuar</EmptyCart> : null

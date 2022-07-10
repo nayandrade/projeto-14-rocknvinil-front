@@ -15,13 +15,16 @@ export default function MainMenu () {
     const pages = Math.ceil(products.length / itensPerPage);
     const startIndex = currentPage * itensPerPage;
     const endIndex = startIndex + itensPerPage;
-    const currentItens = products.slice(startIndex, endIndex);
+    let currentItens;
+
 
     function getProducts () {
         const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products');
         promise.then((res) => {
             setProducts(res.data)
             console.log(res.data)
+            currentItens = products.slice(startIndex, endIndex);
+            console.log(currentItens)
         });
         promise.catch((err) => {
             console.log(err);
@@ -35,6 +38,7 @@ export default function MainMenu () {
     useEffect(() => {
         setCurrentPage(0)
     }, [itensPerPage])
+    
 
     return (
         <>
@@ -43,7 +47,7 @@ export default function MainMenu () {
             <ProductsForSale>
                 {
                     currentItens.length > 0 ? currentItens.map((product, index) => <Product key={index} albumName={product.albumName} albumYear={product.albumName} albumPic={product.albumPic} bandName={product.bandName} prize={product.prize} discount={product.discount} amountAvailable={product.amountAvailable} date={product.registryDay}/> )
-                   : <h2>Não encontramos nenhum disco :(</h2>
+                   : <h2>Não encontramos nenhum disco :</h2>
                 }
             </ProductsForSale>        
             <div>
