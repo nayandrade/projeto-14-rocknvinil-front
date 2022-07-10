@@ -45,7 +45,7 @@ export default function MainMenu () {
         <Container>
             <ProductsForSale>
                 {
-                    products.length > 0 ? products.map((product, index) => <Product key={index} albumId = {product._id} albumName={product.albumName} albumYear={product.albumName} albumImage={product.albumImage} bandName={product.bandName} prize={product.albumPrice} discount={product.discount} amountAvailable={product.amountAvailable} date={product.registryDay}/> )
+                    products.length > 0 ? products.map((product, index) => <Product key={index} albumId = {product._id} albumName={product.albumName} albumYear={product.albumYear} albumImage={product.albumImage} bandName={product.albumBand} prize={product.albumPrice} discount={product.albumDiscount} amountAvailable={product.amountQuantity} date={product.registerDate}/> )
                    : <h2>Não encontramos nenhum disco </h2>
                 }
             </ProductsForSale>        

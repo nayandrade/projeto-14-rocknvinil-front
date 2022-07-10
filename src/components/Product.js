@@ -6,7 +6,6 @@ export default function Product ({ albumName, albumYear, albumId, albumImage, ba
     const [actualPrize, setActualPrize] = useState(prize);
 
     function calculatePrize () {
-
         if (discount !== 0) {
             setActualPrize = prize * ((100 - discount) / 100 )
         }

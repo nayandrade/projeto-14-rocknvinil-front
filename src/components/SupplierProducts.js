@@ -34,7 +34,7 @@ export default function SupplierProducts () {
         <Container>
             <SupplierHeader>
                 {
-                    token ? <h2>Oi, { user.decoded.name }! </h2> : <h2><Link to='/sign-in'>Faça login para continuar!</Link> </h2>
+                    token ? <h2>Oi, { user.name }! </h2> : <h2><Link to='/sign-in'>Faça login para continuar!</Link> </h2>
                 }
                 
                 <h3>Obrigada por contribuir com nossa loja!</h3>
@@ -44,7 +44,7 @@ export default function SupplierProducts () {
             <div>
                 {
                     products.length > 0 ? (
-                    products.map((product, index) => <SupplierProduct key={index} albumName={product.albumName} albumYear={product.albumName} albumImage={product.albumImage} bandName={product.albumBand} prize={product.albumPrice} discount={product.discount} amountAvailable={product.albumQuantity} date={product.registerDate}/> ))
+                    products.map((product, index) => <SupplierProduct key={index} albumName={product.albumName} albumYear={product.albumYear} albumImage={product.albumImage} bandName={product.albumBand} prize={product.albumPrice} discount={product.albumDiscount} amountAvailable={product.albumQuantity} date={product.registerDate}/> ))
                     :
                     <h4>Você ainda não possui um produto à venda.</h4>
                 }
