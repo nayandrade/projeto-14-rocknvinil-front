@@ -27,10 +27,12 @@ const Container=styled.div`
     border-radius: 10px;
 `
 
-const AlbumPic=styled.img`
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+const AlbumPic=styled.div`
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    } 
 `
 
 const AlbumInfo=styled.div`

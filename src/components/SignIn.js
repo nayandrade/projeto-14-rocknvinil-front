@@ -4,24 +4,26 @@ import { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import rocknvinil from '../img/ROCK & VINIL2 1.png';
 import UserContext from '../contexts/UserContext';
+import jwt_decode from "jwt-decode";
 
 export default function SignIn(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const body = {email, password};
-    const serialData = localStorage.getItem('userdata');
-    const data = JSON.parse(serialData);
-    const { user, setUser } = useContext(UserContext);
+    // const serialData = localStorage.getItem('userdata');
+    // const data = JSON.parse(serialData);
+    const { user, setUser, token, setToken } = useContext(UserContext);
+
     const navigate = useNavigate();
     const API = "https://projeto-14-rocknvinil-back.herokuapp.com/sign-in";
     
-    function Autologin(data){
-        if(data){
-            setEmail(data.email);
-            setPassword(data.password);
-        }
-    }
-    useEffect(() => {Autologin(data)}, [])
+    // function Autologin(data){
+    //     if(data){
+    //         setEmail(data.email);
+    //         setPassword(data.password);
+    //     }
+    // }
+    // useEffect(() => {Autologin(data)}, [])
 
     async function Send(event){
         event.preventDefault()
@@ -29,18 +31,19 @@ export default function SignIn(){
         try{
             const response = await axios.post(API, body);
             alert('Acesso realizado com sucesso!');
-            const { token, name } = response.data;
+            const decoded = jwt_decode(response.data);
             localStorage.setItem('userdata', JSON.stringify({
-                name,
-                token
+                token,
+                user: decoded
             }));
+            setToken(response.data);
             setEmail('');
             setPassword('');
-            setUser({ name, token });
+            setUser({ token, name: decoded.name })
             navigate('/');
             
         } catch(error){
-            return alert(error.response.data);
+            console.log(error)
         }
     }
     
