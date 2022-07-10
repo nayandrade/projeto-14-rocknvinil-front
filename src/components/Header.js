@@ -23,7 +23,7 @@ export default function Header( { setProducts, getProducts }) {
             <div>
                 <p><Link to="/sign-in">Login</Link></p>
                 <img src={logo}/>
-                <p><Link to="/carrinho">Cart</Link></p>
+                <p><Link to="/cart">Cart</Link></p>
             </div>
             <div>
                 <Link to='/myproducts'>
@@ -83,6 +83,11 @@ const MyHeader = styled.header`
         width: 100%;
         padding-left: 20px;
         height: 30px;
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+        background: transparent;
+        color: #fff;
     }
     a {
         text-decoration: none;

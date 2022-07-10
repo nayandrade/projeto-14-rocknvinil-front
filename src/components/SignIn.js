@@ -13,7 +13,7 @@ export default function SignIn(){
     const data = JSON.parse(serialData);
     const {token, setToken} = useContext(UserContext);
     const navigate = useNavigate();
-    const API = 'http://localhost:5000/sign-in';
+    const API = "https://projeto-14-rocknvinil-back.herokuapp.com/sign-in";
     
     function Autologin(data){
         if(data){

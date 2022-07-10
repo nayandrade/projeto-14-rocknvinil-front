@@ -19,6 +19,7 @@ export default function SupplierProducts () {
         const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products', {headers: {Authorization: `Bearer ${token}`}});
         promise.then((res) => {
             setProducts(res.data)
+            console.log(res.data)
         });
         promise.catch((err) => {
             console.log(err);
@@ -32,7 +33,10 @@ export default function SupplierProducts () {
         <Header />
         <Container>
             <SupplierHeader>
-                <h2>Oi, { user.name }! </h2>
+                {
+                    user ? <h2>Oi, { user.name }! </h2> : <h2>Faça login para continuar! </h2>
+                }
+                
                 <h3>Obrigada por contribuir com nossa loja!</h3>
                 <button onClick={() => navigate('/new-product')}>+</button>
             </SupplierHeader>           
