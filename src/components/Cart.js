@@ -8,11 +8,10 @@ import Header from "./Header.js"
     
 export default function Cart() {
     const [loading, setLoading] = useState(true)
-    const [cart, setCart] = useState()
-    const [total, setTotal] = useState(0)
-    const { token } = useContext(UserContext);
+    const { token, cart, setCart, total, setTotal } = useContext(UserContext);
     const navigate = useNavigate();
     console.log(cart)
+    console.log(token)
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
@@ -59,7 +58,7 @@ export default function Cart() {
     function renderButtons() {
         return(
             <>
-                <Button>Concluir</Button>
+                <Button onClick={() => navigate("/checkout")}>Concluir</Button>
                 <Button onClick={() => navigate("/")}>Cancelar</Button>
             </>
         )

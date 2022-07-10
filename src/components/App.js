@@ -9,6 +9,7 @@ import Cart from "./Cart.js";
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import NewProduct from './NewProduct';
+import Checkout from "./Checkout";
 
 export default function App() {
 
@@ -19,17 +20,20 @@ export default function App() {
   );
 
   const [token, setToken] = useState([]);
+  const [cart, setCart] = useState()
+  const [total, setTotal] = useState(0)
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ user, setUser, token, setToken }}>
+      <UserContext.Provider value={{ user, setUser, token, setToken, cart, setCart, total, setTotal }}>
         <Routes>
           <Route path='/' element={ <MainMenu/> } />
           <Route path='/myproducts' element={ <SupplierProducts/> } />
           <Route path='/sign-up' element={<SignUp/>}/>
           <Route path='/sign-in' element={<SignIn />}/>
-          <Route path="/carrinho" element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/new-product" element={<NewProduct />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>
