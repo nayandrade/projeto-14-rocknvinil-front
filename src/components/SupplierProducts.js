@@ -8,7 +8,6 @@ import SupplierProduct from './SupplierProduct';
 
 export default function SupplierProducts () {
     const { user } = useContext(UserContext);
-    const { token } = useContext(UserContext);
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
@@ -32,7 +31,12 @@ export default function SupplierProducts () {
         <Header />
         <Container>
             <SupplierHeader>
-                <h2>Oi, { user.name }! </h2>
+                {
+                    user.name ? <h2>Oi, { user.name }! </h2>
+                    :
+                    <h2>Seja bem-vindo!</h2>
+                }
+                
                 <h3>Obrigada por contribuir com nossa loja!</h3>
                 <button onClick={() => navigate('/new-product')}>+</button>
             </SupplierHeader>           
