@@ -4,7 +4,7 @@ import { useState, useContext, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import rocknvinil from '../img/ROCK & VINIL2 1.png';
 import UserContext from '../contexts/UserContext';
-
+ 
 export default function NewProduct(){
     const [albumName, setAlbumName] = useState('');
     const [albumYear, setAlbumYear] = useState('');
