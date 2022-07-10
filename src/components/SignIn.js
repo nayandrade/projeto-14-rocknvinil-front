@@ -13,7 +13,7 @@ export default function SignIn(){
     const data = JSON.parse(serialData);
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
-    const API = 'http://localhost:5000/sign-in';
+    const API = "https://projeto-14-rocknvinil-back.herokuapp.com/sign-in";
     
     function Autologin(data){
         if(data){
@@ -47,7 +47,7 @@ export default function SignIn(){
     return(
         <Container>
             <form onSubmit={Send}>
-                <img src={rocknvinil} alt='rocknvinil'/>
+                <img src={rocknvinil} alt='rocknvinil' onClick={() => navigate('/')} />
                 <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 <input type='password' placeholder='Senha' value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 <button type='submit'>
