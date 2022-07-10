@@ -38,7 +38,7 @@ export default function MainMenu () {
 
     return (
         <>
-        <Header setProducts={setProducts} getProducts={getProducts}/>
+        <Header />
         <Container>
             <ProductsForSale>
                 {

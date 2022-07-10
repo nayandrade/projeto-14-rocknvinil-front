@@ -4,7 +4,7 @@ import logo from "../img/logo_light.svg";
 import searchIcon from "../img/search.svg";
 import axios from "axios";
 
-export default function Header( { setProducts, getProducts }) {
+export default function Header() {
 
     // const searchHandle = (e) => {
     //     let key = e.target.value;

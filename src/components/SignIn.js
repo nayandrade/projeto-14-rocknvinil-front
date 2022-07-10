@@ -9,9 +9,9 @@ export default function SignIn(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const body = {email, password};
-    const serialData = localStorage.getItem('data');
+    const serialData = localStorage.getItem('userdata');
     const data = JSON.parse(serialData);
-    const {token, setToken} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const API = "https://projeto-14-rocknvinil-back.herokuapp.com/sign-in";
     
@@ -29,10 +29,14 @@ export default function SignIn(){
         try{
             const response = await axios.post(API, body);
             alert('Acesso realizado com sucesso!');
-            localStorage.setItem(`data`, JSON.stringify(body));
+            const { token, name } = response.data;
+            localStorage.setItem('userdata', JSON.stringify({
+                name,
+                token
+            }));
             setEmail('');
             setPassword('');
-            setToken(response.data);
+            setUser({ name, token });
             navigate('/');
             
         } catch(error){
