@@ -40,7 +40,7 @@ export default function SignUp(){
     return(
         <Container>
             <form onSubmit={Send}>
-                <img src={rocknvinil} alt='rocknvinil'/>
+                <img src={rocknvinil} alt='rocknvinil' onClick={() => navigate('/')} />
                 <input type='text' placeholder='Nome' value={name} onChange={(e) => setName(e.target.value)} required/>
                 <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 <input type='text' placeholder='CPF' value={cpf} onChange={(e) => setCPF(e.target.value)} required/>

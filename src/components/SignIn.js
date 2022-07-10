@@ -47,7 +47,7 @@ export default function SignIn(){
     return(
         <Container>
             <form onSubmit={Send}>
-                <img src={rocknvinil} alt='rocknvinil'/>
+                <img src={rocknvinil} alt='rocknvinil' onClick={() => navigate('/')} />
                 <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 <input type='password' placeholder='Senha' value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 <button type='submit'>

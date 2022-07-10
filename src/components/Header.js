@@ -5,6 +5,7 @@ import searchIcon from "../img/search.svg";
 import axios from "axios";
 
 export default function Header() {
+    const navigate = useNavigate();
 
     // const searchHandle = (e) => {
     //     let key = e.target.value;
@@ -22,7 +23,7 @@ export default function Header() {
         <MyHeader>
             <div>
                 <p><Link to="/sign-in">Login</Link></p>
-                <img src={logo}/>
+                <img src={logo} onClick={() => navigate('/')}  />
                 <p><Link to="/cart">Cart</Link></p>
             </div>
             <div>
