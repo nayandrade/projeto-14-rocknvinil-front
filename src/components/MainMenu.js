@@ -19,6 +19,7 @@ export default function MainMenu () {
         promise.then((res) => {
             setProducts(res.data)
             console.log(res.data)
+
         });
         promise.catch((err) => {
             console.log(err);

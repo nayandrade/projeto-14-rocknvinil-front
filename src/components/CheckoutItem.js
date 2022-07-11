@@ -9,7 +9,7 @@ export default function CheckoutItem({key, albumName, albumPic, albumYear, bandN
         <Item>
             <Image className="image" albumPic={albumPic}></Image>
             <div className="column">
-                <p>{buyerQuantity}</p>
+                <p>Unidades compradas: {buyerQuantity}</p>
                 <p>R$ unitátio: {parseFloat(price).toFixed(2).replace('.', ',')}</p>
                 <p>R$ total: {parseFloat(price * buyerQuantity).toFixed(2).replace('.', ',')}</p>
                 <p>Nome do Artista: {bandName}</p>
