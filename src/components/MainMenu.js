@@ -50,10 +50,10 @@ export default function MainMenu () {
                    : <h2>Não encontramos nenhum disco </h2>
                 }
             </ProductsForSale>        
-            <div>
+            <Pagination>
                 <PaginationComponent setCurrentPage={setCurrentPage} pages={pages}/>
                 <PaginationSelector itensPerPage={itensPerPage} setItensPerPage={setItensPerPage}/>
-            </div>
+            </Pagination>
         </Container>
         </>
     )
@@ -66,6 +66,7 @@ const Container=styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-top: 30px;
 
     h4 {
         font-size: 20px;
@@ -74,9 +75,9 @@ const Container=styled.div`
 `
 
 const ProductsForSale=styled.div`
-    width: 90%;
-    height: 80%;
-    margin-top: 100px;
+    width: 100%;
+    height: 100%;
+    margin-top: 140px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,5 +85,13 @@ const ProductsForSale=styled.div`
     border-radius: 10px;
     color: #ffffff;
     background-color: #0D0D0D;
-    overflow: hidden;
+    overflow: scroll;
+`
+const Pagination=styled.div`
+    width: 60%;
+    height: 20px;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
 `

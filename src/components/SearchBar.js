@@ -6,33 +6,40 @@ import { Link } from 'react-router-dom';
 
 
 export default function SearchBar () {
-    const [products, setProducts] = useState([]);
-    const [search, setSearch] = useState('');
-    
+    const [allData,setAllData] = useState([]);
+    const [filteredData,setFilteredData] = useState(allData);
+
+
     useEffect(() => {
-        const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products/')
-        promise.then((res) => {
-            setProducts(res.data)
+        const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products')
+        promise.then((response) => {
+            setAllData(response.data);
+            setFilteredData(response.data);
         });
         promise.catch((err) => {
             console.log(err);
         })
-    }, []); 
+    }, []);
+
+    console.log(allData)
+
+    const handleSearch = (event) =>{
+        let value = event.target.value.toLowerCase();
+        let result = [];
+        result = allData.filter((data) => {
+            return data.albumName.search(value) != -1;
+        });
+        setFilteredData(result);
+    }
 
     return (
         <Container>
             <SearchInputs>
-                <input type='text' value={search} onChange={(e) => setSearch(e.target.value)} required />
+                <input type='text' placeholder='Procure um álbum...' onChange={(event) =>handleSearch(event)} required />
                 <img src={searchIcon} />
             </SearchInputs>
             <DataResult>
-                {products.map((value, key) => {
-                    return (
-                        <Link to=''>
-                            <p>{value.albumName}</p>
-                        </Link>
-                    )
-                })}
+            {filteredData.map((value,index)=>{return(<div key={value.id}><div>{value.albumName}</div></div>)})}
             </DataResult>
         </Container>
     )
@@ -45,7 +52,7 @@ const Container=styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
+ 
 `
 
 const SearchInputs=styled.div`
@@ -74,12 +81,16 @@ const SearchInputs=styled.div`
 `
 
 const DataResult=styled.div`
-    margin-top: 10px;
-    width: 100px;
-    height: 100px;
+    display:'inline';
+    width:'30%',;
+    height:50;
+    float:'left';
+    padding:5;
+    border:0.5px solid black;
+    margin-bottom:10px;
+    margin-right:10px;
     display: flex;
-    flex-direction-column;
-    justify-content: left;
-    overflow: hidden;
-    overflow-y: auto;
+`
+
+const Album=styled.div`
 `
