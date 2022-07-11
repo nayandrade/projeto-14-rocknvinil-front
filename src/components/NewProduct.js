@@ -44,7 +44,6 @@ export default function NewProduct(){
             navigate('/');
         } catch(error){
             const errorMessage = error.response.data;
-            console.log(errorMessage);
 
             setValidAlbumName(true);
             setValidAlbumYear(true);
@@ -208,10 +207,10 @@ const Container = styled.div`
 
     button {
         width: 326px;
-        height: 46px;
+        height: 40px;
         border-radius: 5px;
         margin-top: 13px; 
-        margin-bottom: 32px;
+        margin-bottom: 5px;
         border: none;
         font-size: 18px;
         font-weight: 700;

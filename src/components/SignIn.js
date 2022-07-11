@@ -4,7 +4,6 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import rocknvinil from '../img/ROCK & VINIL2 1.png';
 import UserContext from '../contexts/UserContext';
-import jwt_decode from "jwt-decode";
 
 export default function SignIn(){
     const { user, setUser, token, setToken } = useContext(UserContext);

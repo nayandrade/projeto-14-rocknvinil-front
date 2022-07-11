@@ -17,9 +17,7 @@ export default function MainMenu () {
     function getProducts () {
         const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products', {headers: {Authorization: `Bearer ${token}`}});
         promise.then((res) => {
-            setProducts(res.data)
-            console.log(res.data)
-
+            setProducts(res.data);
         });
         promise.catch((err) => {
             console.log(err);
