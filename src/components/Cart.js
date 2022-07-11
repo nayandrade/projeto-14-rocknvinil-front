@@ -7,17 +7,15 @@ import CartItem from "./CartItem.js"
 import Header from "./Header.js"
     
 export default function Cart() {
-    const [loading, setLoading] = useState(true)
-    const { token, cart, setCart, total, setTotal } = useContext(UserContext);
+
+    const { token, cart, setCart, total, setTotal, loading, setLoading } = useContext(UserContext);
     const navigate = useNavigate();
-    console.log(cart)
-    console.log(token)
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     };
-
+    console.log(loading)
     if (loading) {
         const promise = axios.get("https://projeto-14-rocknvinil-back.herokuapp.com/cart", config)
         promise.then(response => {
@@ -31,18 +29,19 @@ export default function Cart() {
     }
 
     function renderCart() {
+
         return(
             cart.map((element, index) => (
                 <CartItem 
                     key={index} 
                     albumName={element.albumName} 
-                    albumPic={element.albumPic} 
+                    albumPic={element.albumImage} 
                     albumYear={element.albumYear} 
-                    bandName={element.bandName} 
-                    discount={element.discount} 
-                    disponibility={element.disponibility} 
-                    price={element.price} 
-                    quantity={element.quantity}
+                    bandName={element.albumBand} 
+                    discount={element.albumDiscount} 
+                    // disponibility={element.disponibility} 
+                    price={element.albumPrice} 
+                    quantity={element.albumQuantity}
                     buyerQuantity={element.buyerQuantity} 
                     supplierId={element.supplierId} 
                     supplierName={element.supplierName} 

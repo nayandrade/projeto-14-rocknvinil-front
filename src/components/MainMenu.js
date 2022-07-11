@@ -1,30 +1,25 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from './Header';
 import PaginationComponent from './PaginationComponent';
 import PaginationSelector from './PaginationSelector';
 import Product from './Product';
+import UserContext from '../contexts/UserContext';
 
 export default function MainMenu () {
     const [products, setProducts] = useState([]);
-    const [itensPerPage, setItensPerPage] = useState(10);
-    const [currentPage, setCurrentPage] = useState(0);
-
-    const pages = Math.ceil(products.length / itensPerPage);
-    const startIndex = currentPage * itensPerPage;
-    const endIndex = startIndex + itensPerPage;
-    let currentItens;
-
+    const { user, token } = useContext(UserContext);
+    // const [itensPerPage, setItensPerPage] = useState(10);
+    // const [currentPage, setCurrentPage] = useState(0);
 
     function getProducts () {
-        const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products');
+        const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products', {headers: {Authorization: `Bearer ${token}`}});
         promise.then((res) => {
             setProducts(res.data)
             console.log(res.data)
-            currentItens = products.slice(startIndex, endIndex);
-            console.log(currentItens)
+
         });
         promise.catch((err) => {
             console.log(err);
@@ -35,24 +30,29 @@ export default function MainMenu () {
         getProducts();
     }, []);
 
-    useEffect(() => {
-        setCurrentPage(0)
-    }, [itensPerPage])
-    
+    // useEffect(() => {
+    //     setCurrentPage(0)
+    // }, [itensPerPage])
 
+    // const pages = Math.ceil(products.length / itensPerPage);
+    // const startIndex = currentPage * itensPerPage;
+    // const endIndex = startIndex + itensPerPage;
+    // const currentItens = products.slice(startIndex, endIndex);
+
+   
     return (
         <>
         <Header />
         <Container>
             <ProductsForSale>
                 {
-                    currentItens.length > 0 ? currentItens.map((product, index) => <Product key={index} albumName={product.albumName} albumYear={product.albumName} albumPic={product.albumPic} bandName={product.bandName} prize={product.prize} discount={product.discount} amountAvailable={product.amountAvailable} date={product.registryDay}/> )
-                   : <h2>Não encontramos nenhum disco :</h2>
+                    products.length > 0 ? products.map((product, index) => <Product key={index} albumId = {product._id} albumName={product.albumName} albumYear={product.albumYear} albumImage={product.albumImage} bandName={product.albumBand} prize={product.albumPrice} discount={product.albumDiscount} amountAvailable={product.amountQuantity} date={product.registerDate}/> )
+                   : <h2>Não encontramos nenhum disco </h2>
                 }
             </ProductsForSale>        
             <div>
-                <PaginationComponent setCurrentPage={setCurrentPage} pages={pages}/>
-                <PaginationSelector itensPerPage={itensPerPage} setItensPerPage={setItensPerPage}/>
+                {/* <PaginationComponent setCurrentPage={setCurrentPage} pages={pages}/>
+                <PaginationSelector itensPerPage={itensPerPage} setItensPerPage={setItensPerPage}/> */}
             </div>
         </Container>
         </>

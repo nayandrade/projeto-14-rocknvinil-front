@@ -1,11 +1,42 @@
 import styled from "styled-components";
+import { useState, useContext } from "react";
+import axios from "axios";
+import UserContext from "../contexts/UserContext.js"
+import { useNavigate } from "react-router-dom"
 
-export default function Product ({ albumName, albumYear, albumImage, bandName, prize, discount}) {
+export default function Product ({ albumName, albumYear, albumId, albumImage, bandName, prize, discount}) {
+    const { token, setLoading } = useContext(UserContext);
+    const [actualPrize, setActualPrize] = useState(prize);
+    const navigate = useNavigate();
 
-    let actualPrize = prize * ((100 - discount) / 100 )
+    function SendToCard(albumId) {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        console.log(albumId)
+        const promise = axios.post("https://projeto-14-rocknvinil-back.herokuapp.com/cart", {
+            _id: albumId,
+        }, config)
+        promise.then(response => {
+            console.log(response)
+            setLoading(true)
+            
+        })
+        promise.catch(error => {
+            console.error(error)
+        })
+    }
+
+    function calculatePrize () {
+        if (discount !== 0) {
+            setActualPrize = prize * ((100 - discount) / 100 )
+        }
+    }
 
     return (
-        <Container>
+        <Container onClick={() => SendToCard(albumId)}>
             <AlbumPic>
                 <img src={albumImage} />
             </AlbumPic>
@@ -30,10 +61,12 @@ const Container=styled.div`
     border-radius: 10px;
 `
 
-const AlbumPic=styled.img`
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+const AlbumPic=styled.div`
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
 `
 
 const AlbumInfo=styled.div`

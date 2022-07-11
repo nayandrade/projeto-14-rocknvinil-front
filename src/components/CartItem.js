@@ -4,16 +4,25 @@ import axios from "axios"
 import styled from "styled-components"
 import UserContext from "../contexts/UserContext.js"
 
-export default function CartItem({ key, albumName, albumPic, albumYear, bandName, discount, disponibility, price, quantity, buyerQuantity, supplierId, supplierName, userId, _id, element, setLoading }) {
+export default function CartItem({ key, albumName, albumPic, albumYear, bandName, discount, price, quantity, buyerQuantity, supplierId, supplierName, userId, _id, element, setLoading }) {
     const [albumQuantity, setAlbumQuantity] = useState(buyerQuantity)
+    const { token } = useContext(UserContext);
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+    // console.log(_id, albumQuantity)
 
     function removeAlbumQuantity() {
+        console.log(_id, albumQuantity)
         if( albumQuantity > 1 ) {
-            setAlbumQuantity(albumQuantity - 1)
-            axios.put(`https://projeto-14-rocknvinil-back.herokuapp.com/carrinho/${_id}`, {
+            
+            axios.put(`https://projeto-14-rocknvinil-back.herokuapp.com/cart/${_id}`, {
                 buyerQuantity: albumQuantity - 1
-            })
+            }, config)
             .then(res => {
+                setAlbumQuantity(albumQuantity - 1)
                 setLoading(true)
                 console.log(res)
             }).catch(err => {
@@ -23,12 +32,13 @@ export default function CartItem({ key, albumName, albumPic, albumYear, bandName
     }
 
     function addAlbumQuantity() {
+        console.log(_id, albumQuantity)
         if( albumQuantity < quantity ) {
-            setAlbumQuantity(albumQuantity + 1)
-            axios.put(`https://projeto-14-rocknvinil-back.herokuapp.com/carrinho/${_id}`, {
+            axios.put(`https://projeto-14-rocknvinil-back.herokuapp.com/cart/${_id}`, {
                 buyerQuantity: albumQuantity + 1
-            } )
+            }, config)
             .then(res => {
+                setAlbumQuantity(albumQuantity + 1)
                 setLoading(true)
                 console.log(res)
             }).catch(err => {
@@ -38,11 +48,14 @@ export default function CartItem({ key, albumName, albumPic, albumYear, bandName
     }
 
     function removeFromCart() {
-        axios.delete(`https://projeto-14-rocknvinil-back.herokuapp.com/carrinho/${_id}`)
-        .then(res => {
+        console.log(_id, albumQuantity)
+        const promise = axios.delete(`https://projeto-14-rocknvinil-back.herokuapp.com/cart/${_id}`, config)
+        promise.then(res => {
             console.log(res)
+            console.log(albumQuantity)
             setLoading(true)
-        }).catch(err => {
+        })
+        promise.catch(err => {
             console.log(err)
         })
     }
@@ -53,6 +66,7 @@ export default function CartItem({ key, albumName, albumPic, albumYear, bandName
             <div className="column">
                 <div className="flex">
                     <h3>R$ {parseFloat(price).toFixed(2).replace('.', ',')}</h3>
+                    <p>desconto de {discount}%</p>
                     <h3 onClick={removeFromCart}>X</h3>
                 </div>
                 <p>{albumName}</p>

@@ -22,10 +22,11 @@ export default function App() {
   const [token, setToken] = useState([]);
   const [cart, setCart] = useState()
   const [total, setTotal] = useState(0)
+  const [loading, setLoading] = useState(true)
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ user, setUser, token, setToken, cart, setCart, total, setTotal }}>
+      <UserContext.Provider value={{ user, setUser, token, setToken, cart, setCart, total, setTotal, loading, setLoading }}>
         <Routes>
           <Route path='/' element={ <MainMenu/> } />
           <Route path='/myproducts' element={ <SupplierProducts/> } />
