@@ -11,8 +11,8 @@ import UserContext from '../contexts/UserContext';
 export default function MainMenu () {
     const [products, setProducts] = useState([]);
     const { user, token } = useContext(UserContext);
-    // const [itensPerPage, setItensPerPage] = useState(10);
-    // const [currentPage, setCurrentPage] = useState(0);
+    const [itensPerPage, setItensPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(0);
 
     function getProducts () {
         const promise = axios.get('https://projeto-14-rocknvinil-back.herokuapp.com/products', {headers: {Authorization: `Bearer ${token}`}});
@@ -29,14 +29,14 @@ export default function MainMenu () {
         getProducts();
     }, []);
 
-    // useEffect(() => {
-    //     setCurrentPage(0)
-    // }, [itensPerPage])
+    useEffect(() => {
+        setCurrentPage(0)
+    }, [itensPerPage])
 
-    // const pages = Math.ceil(products.length / itensPerPage);
-    // const startIndex = currentPage * itensPerPage;
-    // const endIndex = startIndex + itensPerPage;
-    // const currentItens = products.slice(startIndex, endIndex);
+    const pages = Math.ceil(products.length / itensPerPage);
+    const startIndex = currentPage * itensPerPage;
+    const endIndex = startIndex + itensPerPage;
+    const currentItens = products.slice(startIndex, endIndex);
 
    
     return (
@@ -45,13 +45,13 @@ export default function MainMenu () {
         <Container>
             <ProductsForSale>
                 {
-                    products.length > 0 ? products.map((product, index) => <Product key={index} albumId = {product._id} albumName={product.albumName} albumYear={product.albumYear} albumImage={product.albumImage} bandName={product.albumBand} prize={product.albumPrice} discount={product.albumDiscount} amountAvailable={product.amountQuantity} date={product.registerDate}/> )
+                    currentItens.length > 0 ? currentItens.map((product, index) => <Product key={index} albumId = {product._id} albumName={product.albumName} albumYear={product.albumYear} albumImage={product.albumImage} bandName={product.albumBand} prize={product.albumPrice} discount={product.albumDiscount} amountAvailable={product.amountQuantity} date={product.registerDate}/> )
                    : <h2>Não encontramos nenhum disco </h2>
                 }
             </ProductsForSale>        
             <div>
-                {/* <PaginationComponent setCurrentPage={setCurrentPage} pages={pages}/>
-                <PaginationSelector itensPerPage={itensPerPage} setItensPerPage={setItensPerPage}/> */}
+                <PaginationComponent setCurrentPage={setCurrentPage} pages={pages}/>
+                <PaginationSelector itensPerPage={itensPerPage} setItensPerPage={setItensPerPage}/>
             </div>
         </Container>
         </>
@@ -65,22 +65,21 @@ const Container=styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
     h4 {
         font-size: 20px;
-    }
-
-    div {
-        width: 100%;
     }
 
 `
 
 const ProductsForSale=styled.div`
+    width: 90%;
+    height: 80%;
+    margin-top: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 60%;
+    flex-wrap: wrap;
     border-radius: 10px;
     color: #ffffff;
     background-color: #0D0D0D;

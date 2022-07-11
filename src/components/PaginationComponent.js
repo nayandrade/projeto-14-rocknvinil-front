@@ -14,5 +14,8 @@ export default function PaginationComponent ({ setCurrentPage, pages }) {
 }
 
 const Pagination=styled.div`
-    width: 100px;
+    font-size: 15px;
+    background-color: #a6a6a6;
+    width: 80px;
+    height: 40px;
 `
