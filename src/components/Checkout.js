@@ -49,13 +49,13 @@ export default function Checkout() {
                 <CheckoutItem 
                     key={index} 
                     albumName={element.albumName} 
-                    albumPic={element.albumPic} 
+                    albumPic={element.albumImage} 
                     albumYear={element.albumYear} 
-                    bandName={element.bandName} 
-                    discount={element.discount} 
+                    bandName={element.albumBand} 
+                    discount={element.albumDiscount} 
                     disponibility={element.disponibility} 
-                    price={element.price} 
-                    quantity={element.quantity}
+                    price={element.albumPrice} 
+                    quantity={element.albumQuantity}
                     buyerQuantity={element.buyerQuantity} 
                     supplierId={element.supplierId} 
                     supplierName={element.supplierName} 

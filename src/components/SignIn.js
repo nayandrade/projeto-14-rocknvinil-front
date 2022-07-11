@@ -31,16 +31,20 @@ export default function SignIn(){
         try{
             const response = await axios.post(API, body);
             alert('Acesso realizado com sucesso!');
-            const decoded = jwt_decode(response.data);
-            localStorage.setItem('userdata', JSON.stringify({
-                token,
-                user: decoded
-            }));
-            setToken(response.data);
+            console.log(response)
+            // const decoded = jwt_decode(response.data);
+            
+            console.log( response.data.user.name, response.data.token)
+            setToken(response.data.token);
             setEmail('');
             setPassword('');
-            setUser({ token, name: decoded.name })
+            setUser(response.data.user.name)
             navigate('/');
+            localStorage.setItem('userdata', JSON.stringify({
+                token: response.data.token,
+                user: response.data.user.name
+            }));
+ 
             
         } catch(error){
             console.log(error)

@@ -7,19 +7,17 @@ import CartItem from "./CartItem.js"
 import Header from "./Header.js"
     
 export default function Cart() {
-    const [loading, setLoading] = useState(true)
-    const { token, cart, setCart, total, setTotal } = useContext(UserContext);
+
+    const { token, cart, setCart, total, setTotal, loading, setLoading } = useContext(UserContext);
     const navigate = useNavigate();
-    console.log(cart)
-    console.log(token)
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     };
-
+    console.log(loading)
     if (loading) {
-        const promise = axios.get("https://projeto-14-rocknvinil-back.herokuapp.com/carrinho", config)
+        const promise = axios.get("https://projeto-14-rocknvinil-back.herokuapp.com/cart", config)
         promise.then(response => {
             setCart(response.data.myCart)
             setTotal(parseFloat(response.data.totalValue).toFixed(2))
@@ -31,18 +29,19 @@ export default function Cart() {
     }
 
     function renderCart() {
+
         return(
             cart.map((element, index) => (
                 <CartItem 
                     key={index} 
                     albumName={element.albumName} 
-                    albumPic={element.albumPic} 
+                    albumPic={element.albumImage} 
                     albumYear={element.albumYear} 
-                    bandName={element.bandName} 
-                    discount={element.discount} 
-                    disponibility={element.disponibility} 
-                    price={element.price} 
-                    quantity={element.quantity}
+                    bandName={element.albumBand} 
+                    discount={element.albumDiscount} 
+                    // disponibility={element.disponibility} 
+                    price={element.albumPrice} 
+                    quantity={element.albumQuantity}
                     buyerQuantity={element.buyerQuantity} 
                     supplierId={element.supplierId} 
                     supplierName={element.supplierName} 
@@ -76,7 +75,7 @@ export default function Cart() {
             <Header />
             <Container>
                 {
-                    !cart ? "carregando" : renderCart()
+                    token.length < 1 ? "faça login para continuar" : !cart ? "carregando..." : renderCart()
                 }
                 {
                     cart && cart.length > 0 ? <TotalCartValue>Subtotal: R$ {total.replace('.', ',')}</TotalCartValue> : cart && cart.length === 0 ? <EmptyCart>Seu carrinho está vazio, <br></br>Adicione itens para continuar</EmptyCart> : null

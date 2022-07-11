@@ -34,7 +34,7 @@ export default function SupplierProducts () {
         <Container>
             <SupplierHeader>
                 {
-                    token ? <h2>Oi, { user.name }! </h2> : <h2><Link to='/sign-in'>Faça login para continuar!</Link> </h2>
+                    token ? <h2>Oi, { user }! </h2> : <h2><Link to='/sign-in'>Faça login para continuar!</Link> </h2>
                 }
                 
                 <h3>Obrigada por contribuir com nossa loja!</h3>
