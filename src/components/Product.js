@@ -36,7 +36,7 @@ export default function Product ({ albumName, albumYear, albumId, albumImage, ba
     }
 
     return (
-        <Container onClick={() => SendToCard(albumId)}>
+        <Container>
             <Album>
                 <AlbumPic>
                     <img src={albumImage} />
@@ -45,7 +45,8 @@ export default function Product ({ albumName, albumYear, albumId, albumImage, ba
                     <h4>{albumName}</h4>
                     <h3>{albumYear}</h3>
                     <h3>{bandName}</h3>
-                    <h3>Preço: R$ {actualPrize}</h3>                
+                    <h3>Preço: R$ {actualPrize}</h3>  
+                    <h3><button onClick={() => SendToCard(albumId)}>+</button> Adicionar ao carrinho</h3>              
                 </AlbumInfo>
             </Album>
         </Container>
@@ -98,5 +99,16 @@ const AlbumInfo=styled.div`
     h3 {
         font-size: 16px;
         margin-bottom: 8px;
+    }
+    button {
+        background-color: #f2f2f2;
+        margin-right: 10px;
+        box-shadow: 0px 4px 3px rgba(242, 242, 242, 0.2);
+        border: none;
+    }
+    button:active {
+        transform: translateY(2px);
+        box-shadow: 0px 2px 4px rgba(242, 242, 242, 0.2);
+
     }
 `
