@@ -3,35 +3,24 @@ import styled from "styled-components";
 import logo from "../img/logo_light.svg";
 import searchIcon from "../img/search.svg";
 import axios from "axios";
+import { useEffect } from "react";
+import SearchBar from './SearchBar'
 
-export default function Header( { setProducts, getProducts }) {
-
-    const searchHandle = (e) => {
-        let key = e.target.value;
-        if (key) {
-            let promise = axios.get(`https://projeto-14-rocknvinil-back.herokuapp.com/products/${key}`);
-            if (promise) {
-                setProducts(promise)
-            }
-        } else {
-            getProducts();
-        }
-    }
+export default function Header() {
+    const navigate = useNavigate();
 
     return (
         <MyHeader>
             <div>
                 <p><Link to="/sign-in">Login</Link></p>
-                <img src={logo}/>
-                <p><Link to="/carrinho">Cart</Link></p>
+                <img src={logo} onClick={() => navigate('/')}  />
+                <p><Link to="/cart">Cart</Link></p>
             </div>
             <div>
                 <Link to='/myproducts'>
                     <p>Meus <br></br>Produtos</p>
                 </Link>               
-                <span>
-                    <input type='text' placeholder='Search' required/><img src={searchIcon} onClick={searchHandle}/>
-                </span>
+                <SearchBar />
                 <p><Link to='/'>Home</Link></p>
             </div>
         </MyHeader>
@@ -83,6 +72,11 @@ const MyHeader = styled.header`
         width: 100%;
         padding-left: 20px;
         height: 30px;
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+        background: transparent;
+        color: #fff;
     }
     a {
         text-decoration: none;

@@ -101,7 +101,7 @@ export default function SignUp(){
                 
                 <input id='confirmPassword' type='password' placeholder='Confirmar senha' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} ref={inputConfirmPassword} required/>
                 <h5 id='confirmPassword' className={`${validConfirmPassword ? 'hidden' : ''}`}>A senha que você digitou é diferente.</h5>
-                
+               
                 <button type='submit'>
                     Cadastrar
                 </button>

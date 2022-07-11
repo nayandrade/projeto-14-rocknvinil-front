@@ -1,50 +1,98 @@
 import styled from "styled-components";
+import { useState, useContext } from "react";
+import axios from "axios";
+import UserContext from "../contexts/UserContext.js"
+import { useNavigate } from "react-router-dom"
 
-export default function Product ({ albumName, albumYear, albumPic, bandName, prize, discount}) {
+export default function Product ({ albumName, albumYear, albumId, albumImage, bandName, prize, discount}) {
+    const { token, setLoading } = useContext(UserContext);
+    const [actualPrize, setActualPrize] = useState(prize);
+    const navigate = useNavigate();
 
-    let actualPrize = prize * ((100 - discount) / 100 )
+    function SendToCard(albumId) {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        console.log(albumId)
+        const promise = axios.post("https://projeto-14-rocknvinil-back.herokuapp.com/cart", {
+            _id: albumId,
+        }, config)
+        promise.then(response => {
+            console.log(response)
+            setLoading(true)
+            
+        })
+        promise.catch(error => {
+            console.error(error)
+        })
+    }
+
+    function calculatePrize () {
+        if (discount !== 0) {
+            setActualPrize = prize * ((100 - discount) / 100 )
+        }
+    }
 
     return (
-        <Container>
-            <AlbumPic>
-                <img src={albumPic} />
-            </AlbumPic>
-            <AlbumInfo>
-                <h4>{albumName}</h4>
-                <h3>{albumYear}</h3>
-                <h3>{bandName}</h3>
-                <h3>Preço: {actualPrize}</h3>                
-            </AlbumInfo>
+        <Container onClick={() => SendToCard(albumId)}>
+            <Album>
+                <AlbumPic>
+                    <img src={albumImage} />
+                </AlbumPic>
+                <AlbumInfo>
+                    <h4>{albumName}</h4>
+                    <h3>{albumYear}</h3>
+                    <h3>{bandName}</h3>
+                    <h3>Preço: R$ {actualPrize}</h3>                
+                </AlbumInfo>
+            </Album>
         </Container>
     )
 }
 
 const Container=styled.div`
     display: flex;
+    width: 40%;
+    height: 30%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     margin: 10px;
-    width: 80vw;
-    height: 80px;
+    padding: 5px;
     border: 2px solid #f2f2f2;
     border-radius: 10px;
+    overflow: hidden;
+
 `
 
-const AlbumPic=styled.img`
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+const Album=styled.div`
+    display: flex;
+    margin: 10px;
+
+`
+
+const AlbumPic=styled.div`
+    img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+    }
 `
 
 const AlbumInfo=styled.div`
     display: flex;
     flex-direction: column;
+    margin-left: 15px;
+
 
     h4 {
-        font-size: 15px;
+        font-size: 25px;
+        margin-bottom: 5px;
     }
 
     h3 {
-        font-size: 12px;
+        font-size: 16px;
+        margin-bottom: 8px;
     }
 `

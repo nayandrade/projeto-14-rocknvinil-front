@@ -4,18 +4,21 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import rocknvinil from '../img/ROCK & VINIL2 1.png';
 import UserContext from '../contexts/UserContext';
+import jwt_decode from "jwt-decode";
 
 export default function SignIn(){
+    const { user, setUser, token, setToken } = useContext(UserContext);
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [validInput, setValidInput] = useState(true);
+    
     const inputElement = useRef();
 
     const body = {email, password};
-    const serialData = localStorage.getItem('data');
+    const serialData = localStorage.getItem('userdata');
     const data = JSON.parse(serialData);
-    const {token, setToken} = useContext(UserContext);
-
+    
     const navigate = useNavigate();
     const API = 'https://projeto-14-rocknvinil-back.herokuapp.com/sign-in';
     
@@ -29,13 +32,19 @@ export default function SignIn(){
 
     async function Send(event){
         event.preventDefault()
-
         try{
             const response = await axios.post(API, body);
-            localStorage.setItem(`data`, JSON.stringify(body));
+            alert('Acesso realizado com sucesso!');
             setEmail('');
             setPassword('');
-            setToken(response.data);
+            setUser(response.data.user.name);
+            setToken(response.data.token);
+            localStorage.setItem('userdata', JSON.stringify({
+                email: body.email,
+                password: body.password,
+                token: response.data.token,
+                user: response.data.user.name
+            }));
             navigate('/');
             
         } catch(error){
@@ -51,6 +60,7 @@ export default function SignIn(){
                 <input id='email' type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} ref={inputElement} required/>
                 <input id='password' type='password' placeholder='Senha' value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 <h5 id='error' className={`${validInput ? 'hidden' : ''}`}>Email ou senha inválido.</h5>
+                
                 <button type='submit'>
                     Entrar
                 </button>

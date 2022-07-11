@@ -20,14 +20,15 @@ const Pagination=styled.div`
     width: 100%;
     position: relative;
 
+
     select {
         font-size: 15px;
         background-color: #a6a6a6;
         width: 80px;
         height: 40px;
         position: absolute;
-        right: -600px;
-        bottom: -50px;
+        right: -120px;
+        bottom: -5px;
     }
 
     option {
