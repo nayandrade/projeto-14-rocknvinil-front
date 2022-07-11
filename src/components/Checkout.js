@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useState, useContext, useRef } from "react"
+import { useNavigate} from "react-router-dom"
 import axios from "axios"
 import styled from "styled-components"
 import UserContext from "../contexts/UserContext.js"
@@ -10,6 +10,8 @@ import CheckoutItem from "./CheckoutItem.js"
 export default function Checkout() {
     const { token, cart, setCart, total } = useContext(UserContext);
     const navigate = useNavigate();
+    const API = "https://projeto-14-rocknvinil-back.herokuapp.com/checkout"
+
     const [name, setName] = useState("")
     const [address, setAddress] = useState("")
     const [cpf, setCpf] = useState("")
@@ -18,29 +20,90 @@ export default function Checkout() {
     const [expirationDate, setExpirationDate] = useState("")
     const [phone, setPhone] = useState("")
 
+    const [validName, setValidName] = useState(true);
+    const [validAddress, setValidAddress] = useState(true);
+    const [validCPF, setValidCPF] = useState(true);
+    const [validCardNumber, setValidCardNumber] = useState(true);
+    const [validCCV, setValidCCV] = useState(true);
+    const [validExpirationDate, setValidExpirationDate] = useState(true);
+    const [validPhone, setValidPhone] = useState(true);
+
+    const inputName = useRef();
+    const inputAddress = useRef();
+    const inputCPF = useRef();
+    const inputCardNumber = useRef();
+    const inputCCV = useRef();
+    const inputExpiratioDate = useRef();
+    const inputPhone = useRef();
+
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     };
 
-    function submitPurchase(e) {
+    async function submitPurchase(e) {
         e.preventDefault()
-        const promise = axios.post("https://projeto-14-rocknvinil-back.herokuapp.com/checkout", {
-            name,
-            address,
-            cpf,
-            cardNumber,
-            ccv,
-            expirationDate,
-            phone
-        }, config)
-        promise.then(response => {
+        try {
+            const response =  await axios.post(API, {
+                name,
+                address,
+                cpf,
+                cardNumber,
+                ccv,
+                expirationDate,
+                phone
+            }, config);
+            console.log(response.data);
             setCart([])
             navigate("/")
-        }).catch(error => {
-            console.error(error)
-        })
+
+        } catch(error){
+            const errorMessage = error.response.data;
+    
+            setValidName(true);
+            setValidAddress(true);
+            setValidCPF(true);
+            setValidCardNumber(true);
+            setValidCCV(true);
+            setValidExpirationDate(true);
+            setValidPhone(true);
+    
+            if(errorMessage === 'Invalid user name.'){
+                setValidName(false);
+                return inputName.current.focus();
+            }
+    
+            if(errorMessage === 'Invalid address.'){
+                setValidAddress(false);
+                return inputAddress.current.focus();
+            }
+    
+            if(errorMessage === 'Invalid CPF.'){
+                setValidCPF(false);
+                return inputCPF.current.focus();
+            }
+    
+            if(errorMessage === 'Invalid card number.'){
+                setValidCardNumber(false);
+                return inputCardNumber.current.focus();
+            }
+    
+            if(errorMessage === 'Invalid CCV.'){
+                setValidCCV(false);
+                return inputCCV.current.focus();
+            }
+    
+            if(errorMessage === 'Invalid expiration date.'){
+                setValidExpirationDate(false);
+                return inputExpiratioDate.current.focus();
+            }
+    
+            if(errorMessage === 'Invalid phone number.'){
+                setValidPhone(false);
+                return inputPhone.current.focus();
+            }
+        }
     }
 
     function renderCart() {
@@ -76,16 +139,38 @@ export default function Checkout() {
             {
                 cart && cart.length > 0 ? <TotalCartValue>Subtotal: R$ {total.replace('.', ',')}</TotalCartValue> : cart && cart.length === 0 ? <EmptyCart>Seu carrinho está vazio, <br></br>Adicione itens para continuar</EmptyCart> : null
             }
-            <Form onSubmit={submitPurchase}>
-                <input type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} required></input>
-                <input type="number" placeholder="Telefone" value={phone} onChange={(e) => setPhone(e.target.value)} required></input>
-                <input type="text" placeholder="Endereço" value={address} onChange={(e) => setAddress(e.target.value)} required></input>
-                <input type="number" placeholder="CPF" value={cpf} onChange={(e) => setCpf(e.target.value)} required></input>
+            <Form onSubmit={submitPurchase}
+                  nameBackground={validName ? '#FFFFFF' : '#EA8E86'}
+                  phoneBackground={validPhone ? '#FFFFFF' : '#EA8E86'}
+                  addressBackground={validAddress ? '#FFFFFF' : '#EA8E86'}
+                  cpfBackground={validCPF ? '#FFFFFF' : '#EA8E86'}
+                  cardBackground={validCardNumber ? '#FFFFFF' : '#EA8E86'}
+                  ccvBackground={validCCV ? '#FFFFFF' : '#EA8E86'}
+                  expirationBackground={validExpirationDate ? '#FFFFFF' : '#EA8E86'}>
+
+                <input id='name' type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} ref={inputName} required></input>
+                <h5 id='name' className={`${validName ? 'hidden' : ''}`}>Nome inválido</h5>
+                
+                <input id='phone' type="number" placeholder="Telefone" value={phone} onChange={(e) => setPhone(e.target.value)} ref={inputPhone} required></input>
+                <h5 id='phone' className={`${validPhone ? 'hidden' : ''}`}>Telefone inválido</h5>
+                
+                <input id='address' type="text" placeholder="Endereço" value={address} onChange={(e) => setAddress(e.target.value)} ref={inputAddress} required></input>
+                <h5 id='address' className={`${validAddress ? 'hidden' : ''}`}>Endereço inválido</h5>
+                
+                <input id='cpf' type="text" placeholder="CPF" value={cpf} onChange={(e) => setCpf(e.target.value)} ref={inputCPF} required></input>
+                <h5 id='cpf' className={`${validCPF ? 'hidden' : ''}`}>CPF inválido</h5>
+
                 <div>
-                    <input id="card" type="text" placeholder="Cartão" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} required></input>
-                    <input id="ccv" type="text" placeholder="CCV" value={ccv} onChange={(e) => setCcv(e.target.value)} required></input>
-                    <input id="expiration" type="text" placeholder="Expira em" value={expirationDate} onChange={(e) => setExpirationDate(e.target.value)} required></input> 
+                    <input id="card" type="text" placeholder="Cartão" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} ref={inputCardNumber} required></input>
+                    <h5 id='card' className={`${validCardNumber ? 'hidden' : ''}`}>Cartão inválido</h5>
+                    
+                    <input id="ccv" type="text" placeholder="CCV" value={ccv} onChange={(e) => setCcv(e.target.value)} ref={inputCCV} required></input>
+                    <h5 id='ccv' className={`${validCCV ? 'hidden' : ''}`}>CCV inválido</h5>
+                    
+                    <input id="expiration" type="text" placeholder="Expira em" value={expirationDate} onChange={(e) => setExpirationDate(e.target.value)} ref={inputExpiratioDate} required></input> 
+                    <h5 id='expiration' className={`${validExpirationDate ? 'hidden' : ''}`}>Data inválida</h5>
                 </div>
+                
                 <button type="submit">Finalizar compra</button>
                 <button onClick={() => navigate("/cart")}>Cancelar compra</button>
             </Form>
@@ -115,7 +200,6 @@ const Form = styled.form`
     input {
         width: 100%;
         height: 38px;
-        background-color: #FFFFFF;
         border-radius: 5px;
         margin-bottom: 13px;
         padding-left: 15px;
@@ -129,6 +213,34 @@ const Form = styled.form`
     input::placeholder{
         font-size: 15px;
         color: #000000;
+    }
+
+    input#name {
+        background-color: ${props => props.nameBackground};
+    }
+
+    input#phone {
+        background-color: ${props => props.phoneBackground};
+    }
+
+    input#address {
+        background-color: ${props => props.addressBackground};
+    }
+
+    input#cpf {
+        background-color: ${props => props.cpfBackground};
+    }
+
+    input#card {
+        background-color: ${props => props.cardBackground};
+    }
+
+    input#ccv {
+        background-color: ${props => props.ccvBackground};
+    }
+
+    input#expiration {
+        background-color: ${props => props.expirationBackground};
     }
 
     button {
@@ -159,6 +271,11 @@ const Form = styled.form`
     }
     #expiration {
         width: 30%;
+    }
+
+    h5{
+        font-family: 'Raleway';
+        color: #EA8E86; 
     }
 `
 
