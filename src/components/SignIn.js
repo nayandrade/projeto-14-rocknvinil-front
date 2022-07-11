@@ -31,17 +31,10 @@ export default function SignIn(){
         try{
             const response = await axios.post(API, body);
             alert('Acesso realizado com sucesso!');
-<<<<<<< HEAD
-            localStorage.setItem('userdata', JSON.stringify({
-                token: response.data.token,
-                user: response.data.user.name
-            }));
-=======
             console.log(response)
             // const decoded = jwt_decode(response.data);
             
             console.log( response.data.user.name, response.data.token)
->>>>>>> ee0e93f355afb74d2c2cc36df8064c1484c84c63
             setToken(response.data.token);
             setEmail('');
             setPassword('');
