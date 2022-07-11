@@ -12,40 +12,39 @@ export default function CartItem({ key, albumName, albumPic, albumYear, bandName
             Authorization: `Bearer ${token}`
         }
     };
-    // console.log(_id, albumQuantity)
 
-    function removeAlbumQuantity() {
-        console.log(_id, albumQuantity)
-        if( albumQuantity > 1 ) {
+function removeAlbumQuantity() {
+    console.log(_id, albumQuantity)
+    if( albumQuantity > 1 ) {
             
-            axios.put(`https://projeto-14-rocknvinil-back.herokuapp.com/cart/${_id}`, {
-                buyerQuantity: albumQuantity - 1
-            }, config)
-            .then(res => {
-                setAlbumQuantity(albumQuantity - 1)
-                setLoading(true)
-                console.log(res)
-            }).catch(err => {
-                console.log(err)
-            })
-        }
+        axios.put(`https:projeto-14-rocknvinil-back.herokuapp.com/cart/${_id}`, {
+            buyerQuantity: albumQuantity - 1
+        }, config)
+        .then(res => {
+            setAlbumQuantity(albumQuantity - 1)
+            setLoading(true)
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        })
     }
+}
 
-    function addAlbumQuantity() {
-        console.log(_id, albumQuantity)
-        if( albumQuantity < quantity ) {
-            axios.put(`https://projeto-14-rocknvinil-back.herokuapp.com/cart/${_id}`, {
-                buyerQuantity: albumQuantity + 1
-            }, config)
-            .then(res => {
-                setAlbumQuantity(albumQuantity + 1)
-                setLoading(true)
-                console.log(res)
-            }).catch(err => {
-                console.log(err)
-            })
-        }
+function addAlbumQuantity() {
+    console.log(_id, albumQuantity)
+    if( albumQuantity < quantity ) {
+        axios.put(`https://projeto-14-rocknvinil-back.herokuapp.com/cart/${_id}`, {
+            buyerQuantity: albumQuantity + 1
+        }, config)
+        .then(res => {
+            setAlbumQuantity(albumQuantity + 1)
+            setLoading(true)
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        })
     }
+}
 
     function removeFromCart() {
         console.log(_id, albumQuantity)

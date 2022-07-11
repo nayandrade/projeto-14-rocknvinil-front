@@ -20,7 +20,7 @@ export default function Header() {
                 <Link to='/myproducts'>
                     <p>Meus <br></br>Produtos</p>
                 </Link>               
-                <SearchBar />
+                
                 <p><Link to='/'>Home</Link></p>
             </div>
         </MyHeader>
