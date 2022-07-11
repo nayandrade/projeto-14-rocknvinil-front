@@ -33,7 +33,6 @@ export default function SignIn(){
             alert('Acesso realizado com sucesso!');
             console.log(response)
             // const decoded = jwt_decode(response.data);
-            
             console.log( response.data.user.name, response.data.token)
             setToken(response.data.token);
             setEmail('');

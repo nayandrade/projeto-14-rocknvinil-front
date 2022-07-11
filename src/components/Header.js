@@ -3,21 +3,11 @@ import styled from "styled-components";
 import logo from "../img/logo_light.svg";
 import searchIcon from "../img/search.svg";
 import axios from "axios";
+import { useEffect } from "react";
+import SearchBar from './SearchBar'
 
 export default function Header() {
     const navigate = useNavigate();
-
-    // const searchHandle = (e) => {
-    //     let key = e.target.value;
-    //     if (key) {
-    //         let promise = axios.get(`https://projeto-14-rocknvinil-back.herokuapp.com/products/${key}`);
-    //         if (promise) {
-    //             setProducts(promise)
-    //         }
-    //     } else {
-    //         getProducts();
-    //     }
-    // }
 
     return (
         <MyHeader>
@@ -30,9 +20,7 @@ export default function Header() {
                 <Link to='/myproducts'>
                     <p>Meus <br></br>Produtos</p>
                 </Link>               
-                <span>
-                    <input type='text' placeholder='Search' required/><img src={searchIcon} />
-                </span>
+                <SearchBar />
                 <p><Link to='/'>Home</Link></p>
             </div>
         </MyHeader>

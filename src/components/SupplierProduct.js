@@ -7,9 +7,9 @@ export default function SupplierProduct ({ albumName, albumYear, albumImage, ban
                 <img src={albumImage} />
             </AlbumPic>
             <AlbumInfo>
-                <h4>{bandName} | {albumYear} | {albumName}</h4>
-                <h3>Você o colocou a venda por: {prize} em {date}</h3>
-                <h3>O desconto aplicado foi: {discount}</h3>
+                <h4>{bandName} | {albumName} | {albumYear} </h4>
+                <h3>Você o colocou a venda por: <br /> R$ {prize} em {date}</h3>
+                <h3>O desconto aplicado foi: {discount}%</h3>
                 <h3>A quantidade disponibilizada foi: {amountAvailable}</h3>                
             </AlbumInfo>
         </Container>
@@ -18,32 +18,39 @@ export default function SupplierProduct ({ albumName, albumYear, albumImage, ban
 
 const Container=styled.div`
     display: flex;
+    width: 450px;
+    height: 60%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     margin: 10px;
-    width: 80vw;
-    height: 80px;
+    padding: 5px;
     border: 2px solid #f2f2f2;
     border-radius: 10px;
+    overflow: hidden;
+
 `
 
 const AlbumPic=styled.div`
     img {
-        width: 50px;
-        height: 50px;
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
-    } 
+    }
 `
 
 const AlbumInfo=styled.div`
     display: flex;
     flex-direction: column;
+    margin-left: 15px;
+
 
     h4 {
-        font-size: 15px;
+        font-size: 25px;
+        margin-bottom: 5px;
     }
 
     h3 {
-        font-size: 12px;
+        font-size: 16px;
+        margin-bottom: 8px;
     }
 `

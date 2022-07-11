@@ -37,34 +37,45 @@ export default function Product ({ albumName, albumYear, albumId, albumImage, ba
 
     return (
         <Container onClick={() => SendToCard(albumId)}>
-            <AlbumPic>
-                <img src={albumImage} />
-            </AlbumPic>
-            <AlbumInfo>
-                <h4>{albumName}</h4>
-                <h3>{albumYear}</h3>
-                <h3>{bandName}</h3>
-                <h3>Preço: {actualPrize}</h3>                
-            </AlbumInfo>
+            <Album>
+                <AlbumPic>
+                    <img src={albumImage} />
+                </AlbumPic>
+                <AlbumInfo>
+                    <h4>{albumName}</h4>
+                    <h3>{albumYear}</h3>
+                    <h3>{bandName}</h3>
+                    <h3>Preço: R$ {actualPrize}</h3>                
+                </AlbumInfo>
+            </Album>
         </Container>
     )
 }
 
 const Container=styled.div`
     display: flex;
+    width: 40%;
+    height: 30%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     margin: 10px;
-    width: 80vw;
-    height: 80px;
+    padding: 5px;
     border: 2px solid #f2f2f2;
     border-radius: 10px;
+    overflow: hidden;
+
+`
+
+const Album=styled.div`
+    display: flex;
+    margin: 10px;
+
 `
 
 const AlbumPic=styled.div`
     img {
-        width: 50px;
-        height: 50px;
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
     }
 `
@@ -72,12 +83,16 @@ const AlbumPic=styled.div`
 const AlbumInfo=styled.div`
     display: flex;
     flex-direction: column;
+    margin-left: 15px;
+
 
     h4 {
-        font-size: 15px;
+        font-size: 25px;
+        margin-bottom: 5px;
     }
 
     h3 {
-        font-size: 12px;
+        font-size: 16px;
+        margin-bottom: 8px;
     }
 `
