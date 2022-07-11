@@ -21,8 +21,6 @@ export default function SearchBar () {
         })
     }, []);
 
-    console.log(allData)
-
     const handleSearch = (event) =>{
         let value = event.target.value.toLowerCase();
         let result = [];
